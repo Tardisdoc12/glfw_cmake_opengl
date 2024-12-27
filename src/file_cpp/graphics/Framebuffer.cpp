@@ -1,21 +1,11 @@
 //------------------------------------------------------------------------------
-// Name of this file : main.cpp
+// Name of this file : Framebuffer.cpp
 // Author : Jean Anquetil
 // Date : 27/12/2024
 //------------------------------------------------------------------------------
-
-#include "file_h/Application.h"
-#include "file_h/graphics/Framebuffer.h"
+#include "../../file_h/graphics/Framebuffer.h"
 
 //------------------------------------------------------------------------------
-
-int main()
-{
-    Application app;
-    app.run();
-
-    return 0;
-}
 
 //------------------------------------------------------------------------------
 // END OF FILE

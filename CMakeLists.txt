@@ -22,7 +22,7 @@ find_package(OpenGL REQUIRED)
 
 ############################################################################################
 
-file(GLOB_RECURSE SOURCES "src/**/*.cpp")
+file(GLOB_RECURSE SOURCES "src/**/*.cpp" "src/**/**/*.cpp")
 add_executable(main src/main.cpp ${SOURCES})
 
 ############################################################################################
