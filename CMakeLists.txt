@@ -1,5 +1,13 @@
+############################################################################################
+# Name of this file : CMakeLists.txt
+# Author : Jean Anquetil
+# Date : 27/12/2024
+############################################################################################
+
 cmake_minimum_required(VERSION 3.28)
 project(CMakeSFMLProject LANGUAGES CXX)
+
+############################################################################################
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
@@ -12,11 +20,17 @@ FetchContent_Declare(GLFW
 FetchContent_MakeAvailable(GLFW)
 find_package(OpenGL REQUIRED)
 
-file(GLOB_RECURSE SOURCES "src/**/*.cpp")
+############################################################################################
 
+file(GLOB_RECURSE SOURCES "src/**/*.cpp")
 add_executable(main src/main.cpp ${SOURCES})
+
+############################################################################################
 
 target_link_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-build/src)
 target_include_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-src/include)
-
 target_link_libraries(main PRIVATE glfw3 OpenGL::GL)
+
+############################################################################################
+# End of file : CMakeLists.txt
+############################################################################################
