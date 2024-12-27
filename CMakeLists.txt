@@ -19,6 +19,14 @@ FetchContent_Declare(GLFW
 )
 FetchContent_MakeAvailable(GLFW)
 find_package(OpenGL REQUIRED)
+# GLAD
+FetchContent_Declare(
+    glad
+    GIT_REPOSITORY https://github.com/Dav1dde/glad.git
+    GIT_TAG v0.1.36
+    GIT_SHALLOW ON
+)
+FetchContent_MakeAvailable(glad)
 
 ############################################################################################
 
@@ -29,7 +37,7 @@ add_executable(main src/main.cpp ${SOURCES})
 
 target_link_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-build/src)
 target_include_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-src/include)
-target_link_libraries(main PRIVATE glfw3 OpenGL::GL)
+target_link_libraries(main PRIVATE glfw3 glad OpenGL::GL)
 
 ############################################################################################
 # End of file : CMakeLists.txt

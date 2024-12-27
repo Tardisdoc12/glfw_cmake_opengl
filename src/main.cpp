@@ -4,6 +4,9 @@
 // Date : 27/12/2024
 //------------------------------------------------------------------------------
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "file_h/Application.h"
 #include "file_h/graphics/Framebuffer.h"
 

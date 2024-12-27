@@ -5,7 +5,38 @@
 //------------------------------------------------------------------------------
 
 #pragma once
+#include <vector>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+//------------------------------------------------------------------------------
+
+class ColorBuffer
+{
+private:
+    GLuint textureID;
+public:
+    ColorBuffer(int width, int height, GLenum internalFormat = GL_RGB, GLenum format = GL_RGB, GLenum type = GL_UNSIGNED_BYTE);
+    ~ColorBuffer();
+
+    GLuint getTexture() const;
+};
+
+//------------------------------------------------------------------------------
+
+class DepthStencilBuffer
+{
+private:
+    GLuint textureID;
+
+public:
+    DepthStencilBuffer(int width, int height, GLenum format = GL_DEPTH24_STENCIL8, GLenum attachment = GL_DEPTH_STENCIL_ATTACHMENT);
+    ~DepthStencilBuffer();
+
+    GLuint getTexture() const;
+};
+
+//------------------------------------------------------------------------------
 
 class Framebuffer
 {
@@ -17,16 +48,13 @@ public:
     void unbind();
 
     void clear();
-
-    void resize(int width, int height);
+    void attachTexture(GLuint textureID, GLenum attachmentType = GL_COLOR_ATTACHMENT0);
+    void attachRenderbuffer(GLuint renderbufferID, GLenum attachmentType = GL_DEPTH_STENCIL_ATTACHMENT);
 
     GLuint getTexture() const;
 private:
-    GLuint m_fbo;
-    GLuint m_texture;
-    GLuint m_depthBuffer;
-    int m_width;
-    int m_height;
+    GLuint framebufferID;
+    std::vector<GLuint> attachments;
 };
 
 //------------------------------------------------------------------------------
