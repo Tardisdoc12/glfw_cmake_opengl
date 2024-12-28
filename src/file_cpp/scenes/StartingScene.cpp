@@ -31,7 +31,7 @@ void StartingScene::input()
 
 //------------------------------------------------------------------------------
 
-void StartingScene::update()
+void StartingScene::update(SceneManager* sceneManager)
 {
     std::cout << "StartingScene update\n"<< std::endl;
 }

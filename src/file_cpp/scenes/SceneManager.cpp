@@ -48,7 +48,7 @@ void SceneManager::update()
 {
     if (!isEmpty())
     {
-        _scenes.back()->update();
+        _scenes.back()->update(this);
     }
 }
 

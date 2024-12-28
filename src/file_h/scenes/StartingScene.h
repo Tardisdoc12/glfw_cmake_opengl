@@ -18,7 +18,7 @@ public:
 
     void input() final;
 
-    void update() final;
+    void update(SceneManager* sceneManager) final;
 
     void render() final;
 
