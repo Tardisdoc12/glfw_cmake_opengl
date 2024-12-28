@@ -23,7 +23,7 @@ find_package(OpenGL REQUIRED)
 FetchContent_Declare(
     glad
     GIT_REPOSITORY https://github.com/Dav1dde/glad.git
-    GIT_TAG v0.1.36
+    GIT_TAG v2.0.8
     GIT_SHALLOW ON
 )
 FetchContent_MakeAvailable(glad)
@@ -37,6 +37,8 @@ add_executable(main src/main.cpp ${SOURCES})
 
 target_link_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-build/src)
 target_include_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-src/include)
+target_link_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glad-build)
+target_include_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glad-build/include)
 target_link_libraries(main PRIVATE glfw3 glad OpenGL::GL)
 
 ############################################################################################
