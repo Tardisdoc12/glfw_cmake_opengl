@@ -17,15 +17,15 @@ Application::Application()
         std::cerr << "Échec de l'initialisation de GLFW\n";
         return;
     }
-    window = glfwCreateWindow(800, 600, "Fenêtre GLFW", nullptr, nullptr);
-    glfwMakeContextCurrent(window);
+    _window = glfwCreateWindow(800, 600, "Fenêtre GLFW", nullptr, nullptr);
+    glfwMakeContextCurrent(_window);
 }
 
 //------------------------------------------------------------------------------
 
 Application::~Application()
 {
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(_window);
     glfwTerminate();
 }
 
@@ -33,10 +33,10 @@ Application::~Application()
 
 void Application::run()
 {
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(_window)) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(_window);
         glfwPollEvents();
     }
 }
