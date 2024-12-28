@@ -5,10 +5,12 @@
 //------------------------------------------------------------------------------
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <memory>
 
 #include "../file_h/Application.h"
 
 #include "../file_h/scenes/SceneManager.h"
+#include "../file_h/scenes/StartingScene.h"
 
 //------------------------------------------------------------------------------
 
@@ -21,6 +23,9 @@ Application::Application()
     }
     _window = glfwCreateWindow(800, 600, "Fenêtre GLFW", nullptr, nullptr);
     glfwMakeContextCurrent(_window);
+
+
+    _sceneManager.addScene(std::make_unique<StartingScene>());
 }
 
 //------------------------------------------------------------------------------
@@ -33,11 +38,37 @@ Application::~Application()
 
 //------------------------------------------------------------------------------
 
+void Application::input()
+{
+    _sceneManager.input();
+}
+
+//------------------------------------------------------------------------------
+
+void Application::update()
+{
+    _sceneManager.update();
+}
+
+//------------------------------------------------------------------------------
+
+void Application::render()
+{
+    _sceneManager.render();
+}
+
+//------------------------------------------------------------------------------
+
 void Application::run()
 {
     while (!glfwWindowShouldClose(_window)) {
+        this->input();
+
+        this->update();
+        
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+        this->render();
         glfwSwapBuffers(_window);
         glfwPollEvents();
     }

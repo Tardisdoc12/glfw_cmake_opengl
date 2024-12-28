@@ -19,7 +19,14 @@ public:
     void run();
 
 private:
+    void input();
+
+    void update();
+
+    void render();
+    
     GLFWwindow* _window;
+    SceneManager _sceneManager;
 };
 
 //------------------------------------------------------------------------------

@@ -1,33 +1,30 @@
 //------------------------------------------------------------------------------
-// Name of this file : Scene.h
+// Name of this file : StartingScene.h
 // Author : Jean Anquetil
 // Date : 28/12/2024
 //------------------------------------------------------------------------------
 
 #pragma once
+#include "Scene.h"
 
 //------------------------------------------------------------------------------
 
-class Scene
+class StartingScene: public Scene
 {
 public:
+    StartingScene();
 
-    virtual ~Scene() = default;
+    ~StartingScene() override;
 
-    virtual void input() = 0;
+    void input() final;
 
-    virtual void update() = 0;
+    void update() final;
 
-    virtual void render() = 0;
+    void render() final;
 
-    virtual void on_Enter() = 0;
+    void on_Enter() final;
 
-    virtual void on_Exit() = 0;
-private:
-    // GraphicEngine _graphicEngine;
-    // PhysicsEngine _physicsEngine;
-    // AudioEngine _audioEngine;
-    // InputEngine _inputEngine;
+    void on_Exit() final;
 };
 
 //------------------------------------------------------------------------------

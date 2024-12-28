@@ -6,6 +6,7 @@
 
 #pragma once
 #include <vector>
+#include <memory>
 #include "Scene.h"
 
 //------------------------------------------------------------------------------
@@ -15,7 +16,7 @@ class SceneManager
 public:
     SceneManager();
 
-    SceneManager(Scene& sceneInitial);
+    SceneManager(std::unique_ptr<Scene> sceneInitial);
 
     ~SceneManager();
 
@@ -27,14 +28,14 @@ public:
 
     void render();
 
-    void addScene(Scene& scene);
+    void addScene(std::unique_ptr<Scene> scene);
 
-    void removeScene(Scene& scene);
+    void removeScene(std::unique_ptr<Scene> scene);
 
-    void setScene(Scene& scene);
+    void setScene(std::unique_ptr<Scene> scene);
 
 private:
-    std::vector<Scene> _scenes;
+    std::vector<std::unique_ptr<Scene>> _scenes;
 };
 
 //------------------------------------------------------------------------------
