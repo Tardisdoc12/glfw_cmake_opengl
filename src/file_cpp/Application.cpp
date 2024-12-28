@@ -3,10 +3,12 @@
 // Author : Jean Anquetil
 // Date : 27/12/2024
 //------------------------------------------------------------------------------
-
-#include "../file_h/Application.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
+
+#include "../file_h/Application.h"
+
+#include "../file_h/scenes/SceneManager.h"
 
 //------------------------------------------------------------------------------
 
