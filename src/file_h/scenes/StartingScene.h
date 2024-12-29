@@ -6,6 +6,7 @@
 
 #pragma once
 #include "Scene.h"
+#include "../graphics/GraphicEngine.h"
 
 //------------------------------------------------------------------------------
 
@@ -25,6 +26,9 @@ public:
     void on_Enter() final;
 
     void on_Exit() final;
+
+private:
+    GraphicEngine _graphicEngine;
 };
 
 //------------------------------------------------------------------------------

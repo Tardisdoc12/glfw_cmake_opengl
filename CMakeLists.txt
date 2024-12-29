@@ -39,7 +39,7 @@ target_link_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-build/src)
 target_include_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-src/include)
 target_link_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glad-build)
 target_include_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glad-build/include)
-target_link_libraries(main PRIVATE glfw3 glad OpenGL::GL)
+target_link_libraries(main PRIVATE glad glfw3 OpenGL::GL)
 
 ############################################################################################
 # End of file : CMakeLists.txt

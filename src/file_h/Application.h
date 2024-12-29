@@ -4,6 +4,8 @@
 // Date : 27/12/2024
 //------------------------------------------------------------------------------
 #pragma once
+#define GLFW_INCLUDE_NONE
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "scenes/SceneManager.h"
 
