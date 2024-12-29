@@ -30,6 +30,32 @@ FetchContent_MakeAvailable(glad)
 
 ############################################################################################
 
+# Ajouter les shaders en tant que ressources
+set(SHADER_DIR ${CMAKE_SOURCE_DIR}/src/shaders)
+
+# Vérifie que le dossier des shaders existe
+if(NOT EXISTS ${SHADER_DIR})
+    message(FATAL_ERROR "Le dossier 'shaders' n'existe pas dans ${SHADER_DIR}")
+endif()
+
+# Liste des shaders à copier
+file(GLOB SHADER_FILES
+    "${SHADER_DIR}/*"
+)
+message(STATUS "Fichiers de shaders à copier : ${SHADER_FILES}")
+# Répertoire de destination pour les shaders
+set(SHADER_OUTPUT_DIR ${CMAKE_BINARY_DIR}/bin/shaders)
+
+# Ajoute une règle pour copier les shaders
+add_custom_target(copy_shaders ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${SHADER_OUTPUT_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy ${SHADER_FILES} ${SHADER_OUTPUT_DIR}
+    COMMENT "Copie des shaders dans le dossier de build"
+)
+
+
+############################################################################################
+
 file(GLOB_RECURSE SOURCES "src/**/*.cpp" "src/**/**/*.cpp")
 add_executable(main src/main.cpp ${SOURCES})
 
