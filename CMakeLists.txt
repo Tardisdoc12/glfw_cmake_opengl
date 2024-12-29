@@ -42,7 +42,6 @@ endif()
 file(GLOB SHADER_FILES
     "${SHADER_DIR}/*"
 )
-message(STATUS "Fichiers de shaders à copier : ${SHADER_FILES}")
 # Répertoire de destination pour les shaders
 set(SHADER_OUTPUT_DIR ${CMAKE_BINARY_DIR}/bin/shaders)
 
