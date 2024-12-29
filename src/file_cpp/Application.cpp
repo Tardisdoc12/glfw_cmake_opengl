@@ -18,7 +18,7 @@ Application::Application()
 {
     if(!glfwInit())
     {
-        std::cerr << "Échec de l'initialisation de GLFW\n";
+        std::cerr << "Échec de l'initialisation de GLFW ";
         return;
     }
     _window = glfwCreateWindow(800, 600, "Fenêtre GLFW", nullptr, nullptr);

@@ -12,28 +12,28 @@
 
 StartingScene::StartingScene()
 {
-    std::cout << "StartingScene constructor\n"<< std::endl;
+    std::cout << "StartingScene constructor "<< std::endl;
 }
 
 //------------------------------------------------------------------------------
 
 StartingScene::~StartingScene()
 {
-    std::cout << "StartingScene destructor\n"<< std::endl;
+    std::cout << "StartingScene destructor "<< std::endl;
 }
 
 //------------------------------------------------------------------------------
 
 void StartingScene::input()
 {
-    std::cout << "StartingScene input\n"<< std::endl;
+    std::cout << "StartingScene input "<< std::endl;
 }
 
 //------------------------------------------------------------------------------
 
 void StartingScene::update(SceneManager* sceneManager)
 {
-    std::cout << "StartingScene update\n"<< std::endl;
+    std::cout << "StartingScene update "<< std::endl;
     _graphicEngine.update();
 }
 
@@ -41,7 +41,7 @@ void StartingScene::update(SceneManager* sceneManager)
 
 void StartingScene::render(GLFWwindow* window)
 {
-    std::cout << "StartingScene render\n"<< std::endl;
+    std::cout << "StartingScene render "<< std::endl;
     _graphicEngine.render(window);
 }
 
@@ -49,14 +49,14 @@ void StartingScene::render(GLFWwindow* window)
 
 void StartingScene::on_Enter()
 {
-    std::cout << "StartingScene on_Enter\n"<< std::endl;
+    std::cout << "StartingScene on_Enter "<< std::endl;
 }
 
 //------------------------------------------------------------------------------
 
 void StartingScene::on_Exit()
 {
-    std::cout << "StartingScene on_Exit\n"<< std::endl;
+    std::cout << "StartingScene on_Exit "<< std::endl;
 }
 
 //------------------------------------------------------------------------------
