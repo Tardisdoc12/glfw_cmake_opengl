@@ -5,6 +5,9 @@
 //------------------------------------------------------------------------------
 
 #pragma once
+#define GLFW_INCLUDE_NONE
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <vector>
 #include <memory>
 #include "Scene.h"
@@ -26,7 +29,7 @@ public:
 
     void update();
 
-    void render();
+    void render(GLFWwindow* window);
 
     void addScene(std::unique_ptr<Scene> scene);
 

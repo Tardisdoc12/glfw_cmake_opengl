@@ -34,13 +34,15 @@ void StartingScene::input()
 void StartingScene::update(SceneManager* sceneManager)
 {
     std::cout << "StartingScene update\n"<< std::endl;
+    _graphicEngine.update();
 }
 
 //------------------------------------------------------------------------------
 
-void StartingScene::render()
+void StartingScene::render(GLFWwindow* window)
 {
     std::cout << "StartingScene render\n"<< std::endl;
+    _graphicEngine.render(window);
 }
 
 //------------------------------------------------------------------------------

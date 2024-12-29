@@ -21,7 +21,7 @@ public:
 
     void update(SceneManager* sceneManager) final;
 
-    void render() final;
+    void render(GLFWwindow* window) final;
 
     void on_Enter() final;
 

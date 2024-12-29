@@ -5,7 +5,9 @@
 //------------------------------------------------------------------------------
 
 #pragma once
-
+#define GLFW_INCLUDE_NONE
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 //------------------------------------------------------------------------------
 
 class SceneManager;
@@ -22,7 +24,7 @@ public:
 
     virtual void update(SceneManager* sceneManager) = 0;
 
-    virtual void render() = 0;
+    virtual void render(GLFWwindow* window) = 0;
 
     virtual void on_Enter() = 0;
 

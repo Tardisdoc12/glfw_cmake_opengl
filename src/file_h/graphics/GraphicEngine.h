@@ -20,7 +20,7 @@ public:
 
     void update();
 
-    void render();
+    void render(GLFWwindow* window);
 
 private:
     std::map<int, Framebuffer> _framebuffers;

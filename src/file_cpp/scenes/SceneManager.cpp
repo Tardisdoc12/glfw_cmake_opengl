@@ -5,7 +5,9 @@
 //------------------------------------------------------------------------------
 
 #include <memory>
-
+#define GLFW_INCLUDE_NONE
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "../../file_h/scenes/SceneManager.h"
 
 //------------------------------------------------------------------------------
@@ -54,11 +56,11 @@ void SceneManager::update()
 
 //------------------------------------------------------------------------------
 
-void SceneManager::render()
+void SceneManager::render(GLFWwindow* window)
 {
     if (!isEmpty())
     {
-        _scenes.back()->render();
+        _scenes.back()->render(window);
     }
 }
 
