@@ -70,6 +70,30 @@ unsigned int linkShaderProgram(unsigned int vertexShader, unsigned int fragmentS
 
 //------------------------------------------------------------------------------
 
+void checkCompileErrors(GLuint shader, std::string type) {
+    GLint success;
+    GLchar infoLog[1024];
+    if (type != "PROGRAM") {
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+            std::cerr << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
+                      << infoLog << "\n -- --------------------------------------------------- -- " 
+                      << std::endl;
+        }
+    } else {
+        glGetProgramiv(shader, GL_LINK_STATUS, &success);
+        if (!success) {
+            glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+            std::cerr << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
+                      << infoLog << "\n -- --------------------------------------------------- -- " 
+                      << std::endl;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+
 Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
 {
     // Charger les sources des shaders
@@ -85,6 +109,10 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
 
     // Stocker le shader program ID dans une variable membre
     _shaderProgram = shaderProgram;
+
+    checkCompileErrors(vertexShader, "VERTEX");
+    checkCompileErrors(fragmentShader, "FRAGMENT");
+    checkCompileErrors(_shaderProgram, "PROGRAM");
     std::cout << "Shader program created with ID: " << _shaderProgram << std::endl;
 }
 

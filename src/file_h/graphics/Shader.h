@@ -17,6 +17,7 @@
 class Shader
 {
 public:
+    Shader() = default;
     Shader(const std::string vertexPath, const std::string fragmentPath);
     ~Shader();
 

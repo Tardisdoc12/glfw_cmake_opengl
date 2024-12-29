@@ -7,8 +7,10 @@
 #pragma once
 #include <iostream>
 #include <map>
+#include <memory>
 #include "Framebuffer.h"
 #include "Shader.h"
+#include "Mesh.h"
 
 //------------------------------------------------------------------------------
 
@@ -24,10 +26,10 @@ public:
     void render(GLFWwindow* window);
 
 private:
-    std::map<int, Framebuffer> _framebuffers;
-    std::map<int, Shader> _shaders;
-    //std::vector<Texture> _textures;
-
+    std::map<int, std::unique_ptr<Framebuffer>> _framebuffers;
+    std::map<int, std::unique_ptr<Shader> > _shaders;
+    std::vector<std::unique_ptr<Triangle>> _triangles;
+    // std::vector<Texture> _textures;
 };
 
 //------------------------------------------------------------------------------
