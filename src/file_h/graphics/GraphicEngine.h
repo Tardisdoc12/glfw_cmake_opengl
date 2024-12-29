@@ -8,6 +8,7 @@
 #include <iostream>
 #include <map>
 #include "Framebuffer.h"
+#include "Shader.h"
 
 //------------------------------------------------------------------------------
 
@@ -24,7 +25,7 @@ public:
 
 private:
     std::map<int, Framebuffer> _framebuffers;
-    //std::vector<Shader> _shaders;
+    std::map<int, Shader> _shaders;
     //std::vector<Texture> _textures;
 
 };

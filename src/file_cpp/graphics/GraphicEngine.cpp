@@ -22,6 +22,12 @@ GraphicEngine::~GraphicEngine(){
     for(auto& framebuffer : _framebuffers){
         framebuffer.second.~Framebuffer();
     }
+    if (_shaders.empty()){
+        return;
+    }
+    for (auto& shader : _shaders){
+        shader.second.~Shader();
+    }
 }
 
 //------------------------------------------------------------------------------
