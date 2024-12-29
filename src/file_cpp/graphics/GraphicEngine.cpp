@@ -11,7 +11,9 @@
 GraphicEngine::GraphicEngine()
 {
     _shaders[0] = std::make_unique<Shader>("shaders/default.vert", "shaders/default.frag");
-    _triangles.push_back(std::make_unique<Triangle>());
+    auto triangleData = std::make_shared<TriangleData>();
+    auto triangleMesh = std::make_shared<Mesh<TriangleData>>();
+    _triangles.push_back(triangleMesh);
     glEnable(GL_DEPTH_TEST);
 }
 
@@ -29,12 +31,6 @@ GraphicEngine::~GraphicEngine(){
     }
     for (auto& shader : _shaders){
         shader.second->~Shader();
-    }
-    if (_triangles.empty()){
-        return;
-    }
-    for (auto& triangle : _triangles){
-        triangle->~Triangle();
     }
 }
 
