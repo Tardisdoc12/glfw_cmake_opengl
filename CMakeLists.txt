@@ -23,7 +23,7 @@ find_package(OpenGL REQUIRED)
 FetchContent_Declare(
     glad
     GIT_REPOSITORY https://github.com/Dav1dde/glad.git
-    GIT_TAG v2.0.8
+    GIT_TAG master
     GIT_SHALLOW ON
 )
 FetchContent_MakeAvailable(glad)
