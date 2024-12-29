@@ -39,8 +39,9 @@ void Mesh<VertexData>::setup(const VertexData& data) {
 
     // Configurer les attributs de vertex
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);  // Position
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));  // Couleur
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));  // Couleur
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -64,6 +65,10 @@ void Mesh<VertexData>::render() {
 //------------------------------------------------------------------------------
 
 template class Mesh<TriangleData>;
+
+//------------------------------------------------------------------------------
+
+template class Mesh<SquareData>;
 
 //------------------------------------------------------------------------------
 // END OF FILE

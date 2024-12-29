@@ -11,9 +11,13 @@
 GraphicEngine::GraphicEngine()
 {
     _shaders[0] = std::make_unique<Shader>("shaders/default.vert", "shaders/default.frag");
-    auto triangleData = std::make_shared<TriangleData>();
-    auto triangleMesh = std::make_shared<Mesh<TriangleData>>();
-    _triangles.push_back(triangleMesh);
+    // auto triangleData = std::make_shared<TriangleData>();
+    // auto triangleMesh = std::make_shared<Mesh<TriangleData>>();
+    // _meshes.push_back(triangleMesh);
+
+    auto squareData = std::make_shared<SquareData>();
+    auto squareMesh = std::make_shared<Mesh<SquareData>>();
+    _meshes.push_back(squareMesh);
     glEnable(GL_DEPTH_TEST);
 }
 
@@ -48,9 +52,9 @@ void GraphicEngine::render(GLFWwindow* window)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     _shaders[0]->use();
-    for(auto& triangle : _triangles){
-        triangle->arm_for_drawing();
-        triangle->render();
+    for(auto& mesh : _meshes){
+        mesh->arm_for_drawing();
+        mesh->render();
     }
     glfwSwapBuffers(window);
     glfwPollEvents();
