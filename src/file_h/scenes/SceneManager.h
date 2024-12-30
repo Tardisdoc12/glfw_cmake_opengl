@@ -27,7 +27,7 @@ public:
 
     void input();
 
-    void update();
+    void update(float fps);
 
     void render(GLFWwindow* window);
 

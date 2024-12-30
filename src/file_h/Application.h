@@ -22,7 +22,7 @@ public:
 
 private:
 
-    float get_fps();
+    float get_dt();
 
     void input();
 
@@ -32,6 +32,7 @@ private:
     
     GLFWwindow* _window;
     SceneManager _sceneManager;
+    float _lastTime;
 };
 
 //------------------------------------------------------------------------------

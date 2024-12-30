@@ -46,11 +46,11 @@ void SceneManager::input()
 
 //------------------------------------------------------------------------------
 
-void SceneManager::update()
+void SceneManager::update(float fps)
 {
     if (!isEmpty())
     {
-        _scenes.back()->update(this);
+        _scenes.back()->update(this, fps);
     }
 }
 

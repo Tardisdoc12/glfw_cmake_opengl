@@ -16,6 +16,7 @@
 
 Application::Application()
 {
+    _lastTime = 0.0f;
     if(!glfwInit())
     {
         std::cerr << "Échec de l'initialisation de GLFW ";
@@ -37,21 +38,12 @@ Application::~Application()
 
 //------------------------------------------------------------------------------
 
-float Application::get_fps()
-{
-    static float lastTime = 0.0f;
-    static int nbFrames = 0;
-    static float fps = 0.0f;
-    
-    float currentTime = glfwGetTime();
-    nbFrames++;
-    if (currentTime - lastTime >= 1.0f) {
-        fps = float(nbFrames) / (currentTime - lastTime);
-        nbFrames = 0;
-        lastTime = currentTime;
-    }
-    
-    return fps;
+float Application::get_dt()
+{ // Temps de la dernière frame
+    float currentTime = glfwGetTime(); // Temps actuel
+    float dt = currentTime - _lastTime; // Calcul du delta time
+    _lastTime = currentTime; // Mise à jour du temps de la dernière frame
+    return dt;
 }
 
 //------------------------------------------------------------------------------
@@ -65,9 +57,8 @@ void Application::input()
 
 void Application::update()
 {
-    float fps = get_fps();
-    std::cout << "FPS : " << fps << std::endl;
-    _sceneManager.update();
+    float fps = get_dt();
+    _sceneManager.update(fps);
 }
 
 //------------------------------------------------------------------------------

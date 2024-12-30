@@ -19,7 +19,7 @@ public:
 
     void input() final;
 
-    void update(SceneManager* sceneManager) final;
+    void update(SceneManager* sceneManager, float fps) final;
 
     void render(GLFWwindow* window) final;
 

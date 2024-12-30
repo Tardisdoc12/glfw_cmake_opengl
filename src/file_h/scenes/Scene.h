@@ -22,7 +22,7 @@ public:
 
     virtual void input() = 0;
 
-    virtual void update(SceneManager* sceneManager) = 0;
+    virtual void update(SceneManager* sceneManager, float fps) = 0;
 
     virtual void render(GLFWwindow* window) = 0;
 
