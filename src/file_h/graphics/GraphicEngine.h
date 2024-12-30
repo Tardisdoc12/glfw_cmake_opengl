@@ -11,6 +11,7 @@
 #include "Framebuffer.h"
 #include "Shader.h"
 #include "Mesh.h"
+#include "Texture.h"
 
 //------------------------------------------------------------------------------
 
@@ -29,7 +30,7 @@ private:
     std::map<int, std::unique_ptr<Framebuffer>> _framebuffers;
     std::map<int, std::unique_ptr<Shader> > _shaders;
     std::map<std::string, std::vector<std::shared_ptr<MeshBase>>> _meshes;
-    // std::vector<Texture> _textures;
+    std::map<std::string, std::unique_ptr<Texture>> _textures;
 };
 
 //------------------------------------------------------------------------------

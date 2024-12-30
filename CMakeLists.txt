@@ -27,7 +27,17 @@ FetchContent_Declare(
     GIT_SHALLOW ON
 )
 FetchContent_MakeAvailable(glad)
-
+FetchContent_Declare(
+    stb_image
+    GIT_REPOSITORY  https://github.com/nothings/stb.git
+    GIT_TAG         master
+    GIT_SHALLOW     TRUE
+)
+FetchContent_MakeAvailable(stb_image)
+FetchContent_GetProperties(stb_image)
+if(NOT stb_image_POPULATED)
+    FetchContent_Populate(stb_image)
+endif()
 ############################################################################################
 
 # Ajouter les shaders en tant que ressources
@@ -52,6 +62,29 @@ add_custom_target(copy_shaders ALL
     COMMENT "Copie des shaders dans le dossier de build"
 )
 
+############################################################################################
+
+# Ajouter les textures en tant que ressources
+set(TEXTURE_DIR ${CMAKE_SOURCE_DIR}/src/images)
+
+# Vérifie que le dossier des textures existe
+if(NOT EXISTS ${TEXTURE_DIR})
+    message(FATAL_ERROR "Le dossier 'images' n'existe pas dans ${TEXTURE_DIR}")
+endif()
+
+# Liste des texture à copier
+file(GLOB TEXTURE_DIR
+    "${TEXTURE_DIR}/*"
+)
+# Répertoire de destination pour les textures
+set(TEXTURE_OUTPUT_DIR ${CMAKE_BINARY_DIR}/bin/images)
+
+# Ajoute une règle pour copier les textures
+add_custom_target(copy_texture ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${TEXTURE_OUTPUT_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy ${TEXTURE_DIR} ${TEXTURE_OUTPUT_DIR}}
+    COMMENT "Copie des textures dans le dossier de build"
+)
 
 ############################################################################################
 
@@ -64,6 +97,8 @@ target_link_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-build/src)
 target_include_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glfw-src/include)
 target_link_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glad-build)
 target_include_directories(main PRIVATE ${CMAKE_BINARY_DIR}/_deps/glad-build/include)
+target_include_directories(main PRIVATE ${stb_image_SOURCE_DIR})
+target_compile_definitions(main PRIVATE STB_IMAGE_IMPLEMENTATION)
 target_link_libraries(main PRIVATE glad glfw3 OpenGL::GL)
 
 ############################################################################################
