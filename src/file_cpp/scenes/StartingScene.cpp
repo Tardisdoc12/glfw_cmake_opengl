@@ -29,9 +29,8 @@ void StartingScene::input()
 
 //------------------------------------------------------------------------------
 
-void StartingScene::update(SceneManager* sceneManager, float fps)
+void StartingScene::update(SceneManager* sceneManager, float dt)
 {
-    std::cout << "FPS : " << fps << std::endl;
     _graphicEngine.update();
 }
 
