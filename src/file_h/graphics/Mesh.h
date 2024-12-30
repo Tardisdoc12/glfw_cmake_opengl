@@ -30,7 +30,6 @@ class Mesh : public MeshBase {
 public:
     Mesh();
     ~Mesh() override;
-
     // Configure le mesh (par exemple, initialisation des buffers, etc.)
     void setup(const VertexData& data);
 
@@ -42,6 +41,7 @@ private:
     GLuint _VAO, _VBO;
     std::vector<float> _vertices;
 };
+
 //------------------------------------------------------------------------------
 
 struct TriangleData{
@@ -70,9 +70,6 @@ struct SquareData
         };
     }
 };
-
-
-//------------------------------------------------------------------------------
 
 #endif
 //------------------------------------------------------------------------------

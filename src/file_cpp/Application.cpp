@@ -24,6 +24,7 @@ Application::Application()
     _window = glfwCreateWindow(800, 600, "Fenêtre GLFW", nullptr, nullptr);
     glfwMakeContextCurrent(_window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    glfwSwapInterval(1); // Synchronisation verticale 
     _sceneManager.addScene(std::make_unique<StartingScene>());
 }
 
@@ -32,6 +33,25 @@ Application::Application()
 Application::~Application()
 {
     _sceneManager.~SceneManager();
+}
+
+//------------------------------------------------------------------------------
+
+float Application::get_fps()
+{
+    static float lastTime = 0.0f;
+    static int nbFrames = 0;
+    static float fps = 0.0f;
+    
+    float currentTime = glfwGetTime();
+    nbFrames++;
+    if (currentTime - lastTime >= 1.0f) {
+        fps = float(nbFrames) / (currentTime - lastTime);
+        nbFrames = 0;
+        lastTime = currentTime;
+    }
+    
+    return fps;
 }
 
 //------------------------------------------------------------------------------
@@ -45,6 +65,8 @@ void Application::input()
 
 void Application::update()
 {
+    float fps = get_fps();
+    std::cout << "FPS : " << fps << std::endl;
     _sceneManager.update();
 }
 

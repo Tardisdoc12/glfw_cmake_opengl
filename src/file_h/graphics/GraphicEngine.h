@@ -28,7 +28,7 @@ public:
 private:
     std::map<int, std::unique_ptr<Framebuffer>> _framebuffers;
     std::map<int, std::unique_ptr<Shader> > _shaders;
-    std::vector<std::shared_ptr<MeshBase>> _meshes;
+    std::map<std::string, std::vector<std::shared_ptr<MeshBase>>> _meshes;
     // std::vector<Texture> _textures;
 };
 

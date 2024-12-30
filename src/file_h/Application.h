@@ -21,6 +21,9 @@ public:
     void run();
 
 private:
+
+    float get_fps();
+
     void input();
 
     void update();
