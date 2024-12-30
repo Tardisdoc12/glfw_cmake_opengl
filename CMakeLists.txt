@@ -72,17 +72,16 @@ if(NOT EXISTS ${TEXTURE_DIR})
     message(FATAL_ERROR "Le dossier 'images' n'existe pas dans ${TEXTURE_DIR}")
 endif()
 
-# Liste des texture à copier
-file(GLOB TEXTURE_DIR
-    "${TEXTURE_DIR}/*"
-)
+# Liste des textures à copier
+file(GLOB TEXTURE_FILES "${TEXTURE_DIR}/*")
+
 # Répertoire de destination pour les textures
 set(TEXTURE_OUTPUT_DIR ${CMAKE_BINARY_DIR}/bin/images)
 
 # Ajoute une règle pour copier les textures
 add_custom_target(copy_texture ALL
     COMMAND ${CMAKE_COMMAND} -E make_directory ${TEXTURE_OUTPUT_DIR}
-    COMMAND ${CMAKE_COMMAND} -E copy ${TEXTURE_DIR} ${TEXTURE_OUTPUT_DIR}}
+    COMMAND ${CMAKE_COMMAND} -E copy ${TEXTURE_FILES} ${TEXTURE_OUTPUT_DIR}
     COMMENT "Copie des textures dans le dossier de build"
 )
 

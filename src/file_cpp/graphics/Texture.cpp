@@ -31,6 +31,7 @@ void Texture::load_texture(const std::string image_path)
     // Charger l'image, créer une texture et générer des mipmaps
     int width, height, nrChannels;
     unsigned char* data = stbi_load(image_path.c_str(), &width, &height, &nrChannels, 0);
+    
     if (data)
     {
         if (nrChannels == 3)

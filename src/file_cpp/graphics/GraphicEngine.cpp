@@ -11,7 +11,7 @@
 GraphicEngine::GraphicEngine()
 {
     _shaders[0] = std::make_unique<Shader>("shaders/default.vert", "shaders/default.frag");
-
+    _textures["cat"] = std::make_unique<Texture>("images/cat.jpg");
     auto squareData = std::make_shared<SquareData>();
     auto squareMesh = std::make_shared<Mesh<SquareData>>();
     _meshes["square"].push_back(squareMesh);
