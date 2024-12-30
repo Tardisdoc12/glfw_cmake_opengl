@@ -35,6 +35,7 @@ void GraphicEngine::render(GLFWwindow* window)
     glClearColor(0.2f, 0.3f, 0.3f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     _shaders[0]->use();
+    _textures["cat"]->bind_texture();
     for (auto& pair : _meshes){
         for(auto& mesh : pair.second){
             mesh->arm_for_drawing();
