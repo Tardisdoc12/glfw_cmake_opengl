@@ -28,7 +28,7 @@ public:
     void unbind_texture();
 
 private:
-    unsigned int _texture;
+    GLuint _texture;
 };
 
 //------------------------------------------------------------------------------

@@ -48,6 +48,7 @@ void Texture::load_texture(const std::string image_path)
     {
         std::cerr << "Échec du chargement de l'image " << image_path << std::endl;
     }
+    stbi_image_free(data);
 }
 
 //------------------------------------------------------------------------------
