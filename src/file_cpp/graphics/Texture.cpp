@@ -13,13 +13,13 @@
 Texture::Texture(const std::string image_path)
 {
     glGenTextures(1, &_texture);
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _texture);
-    // Configuration de la texture
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // Configuration du filtrage de la texture
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     this->load_texture(image_path);
 }
@@ -30,8 +30,9 @@ void Texture::load_texture(const std::string image_path)
 {
     // Charger l'image, créer une texture et générer des mipmaps
     int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     unsigned char* data = stbi_load(image_path.c_str(), &width, &height, &nrChannels, 0);
-    
     if (data)
     {
         if (nrChannels == 3)
@@ -49,13 +50,13 @@ void Texture::load_texture(const std::string image_path)
         std::cerr << "Échec du chargement de l'image " << image_path << std::endl;
     }
     stbi_image_free(data);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 //------------------------------------------------------------------------------
 
 void Texture::bind_texture()
 {
-    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _texture);
 }
 

@@ -22,6 +22,9 @@ Application::Application()
         std::cerr << "Échec de l'initialisation de GLFW ";
         return;
     }
+    
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     _window = glfwCreateWindow(800, 600, "Fenêtre GLFW", nullptr, nullptr);
     glfwMakeContextCurrent(_window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);

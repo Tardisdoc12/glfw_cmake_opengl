@@ -127,6 +127,13 @@ Shader::~Shader()
 
 //------------------------------------------------------------------------------
 
+GLuint Shader::get_id()
+{
+    return _shaderProgram;
+}
+
+//------------------------------------------------------------------------------
+
 void Shader::set_single_form(std::string uniform_type, std::string uniform_name)
 {
     if(_single_uniform.find(uniform_type) != _single_uniform.end())

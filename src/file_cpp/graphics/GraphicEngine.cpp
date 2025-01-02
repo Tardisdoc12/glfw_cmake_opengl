@@ -15,6 +15,9 @@ GraphicEngine::GraphicEngine()
     auto squareData = std::make_shared<SquareData>();
     auto squareMesh = std::make_shared<Mesh<SquareData>>();
     _meshes["square"].push_back(squareMesh);
+
+    _shaders[0]->use();
+    glUniform1i(glGetUniformLocation(_shaders[0]->get_id(), "texture1"), 0);
     glEnable(GL_DEPTH_TEST);
 }
 
@@ -35,9 +38,10 @@ void GraphicEngine::render(GLFWwindow* window)
     glClearColor(0.2f, 0.3f, 0.3f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     _shaders[0]->use();
-    _textures["cat"]->bind_texture();
     for (auto& pair : _meshes){
         for(auto& mesh : pair.second){
+            
+            _textures["cat"]->bind_texture();
             mesh->arm_for_drawing();
             mesh->render();
         }

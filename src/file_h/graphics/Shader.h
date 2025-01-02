@@ -24,6 +24,8 @@ public:
     void set_single_form(std::string uniform_type, std::string uniform_name);
     void set_multi_form(std::string uniform_type, std::string uniform_name);
 
+    GLuint get_id();
+
     std::string fetch_single_uniform(std::string uniform_name);
     std::string fetch_multi_uniform(std::string uniform_name, int index);
 
