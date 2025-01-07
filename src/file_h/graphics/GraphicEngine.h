@@ -34,6 +34,8 @@ private:
     std::map<std::string, std::vector<std::shared_ptr<MeshBase>>> _meshes;
     std::map<std::string, std::unique_ptr<Texture>> _textures;
     glm::mat4 _modelMatrix;
+    glm::mat4 _viewMatrix;
+    glm::mat4 _projectionMatrix;
 };
 
 //------------------------------------------------------------------------------

@@ -19,8 +19,17 @@ GraphicEngine::GraphicEngine()
     _shaders[0]->use();
     _shaders[0]->set_single_form("Texture", "texture1");
     glUniform1i(_shaders[0]->fetch_single_uniform("Texture"), 0);
-    _modelMatrix = get_model_matrix(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.f, 0.0f), glm::vec3(1.0f, 2.0f, 1.0f));
+    
+    _modelMatrix = get_model_matrix(glm::vec3(0.0f, 0.0f, -0.5f), glm::vec3(0.0f, 0.f, 0.0f), glm::vec3(1.0f, 2.0f, 1.0f));
+    _viewMatrix = get_view_matrix(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    _projectionMatrix = get_projection_matrix(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+    
+    _shaders[0]->set_single_form("View", "ViewMatrix");
+    _shaders[0]->set_single_form("Projection", "ProjectionMatrix");
     _shaders[0]->set_single_form("Model", "ModelMatrix");
+    
+    glUniformMatrix4fv(_shaders[0]->fetch_single_uniform("View"), 1, GL_FALSE, glm::value_ptr(_viewMatrix));
+    glUniformMatrix4fv(_shaders[0]->fetch_single_uniform("Projection"), 1, GL_FALSE, glm::value_ptr(_projectionMatrix));
     glUniformMatrix4fv(_shaders[0]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_modelMatrix));
 
     glEnable(GL_DEPTH_TEST);
@@ -34,8 +43,6 @@ GraphicEngine::~GraphicEngine() = default;
 
 void GraphicEngine::update()
 {
-    _modelMatrix = update_model_matrix(_modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-    glUniformMatrix4fv(_shaders[0]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_modelMatrix));
 }
 
 //------------------------------------------------------------------------------
