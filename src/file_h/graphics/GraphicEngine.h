@@ -13,6 +13,7 @@
 #include "Mesh.h"
 //#include "Mesh3D.h"
 #include "Texture.h"
+#include "MatrixFunctions.h"
 
 //------------------------------------------------------------------------------
 
@@ -32,6 +33,7 @@ private:
     std::map<int, std::unique_ptr<Shader> > _shaders;
     std::map<std::string, std::vector<std::shared_ptr<MeshBase>>> _meshes;
     std::map<std::string, std::unique_ptr<Texture>> _textures;
+    glm::mat4 _modelMatrix;
 };
 
 //------------------------------------------------------------------------------
