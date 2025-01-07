@@ -32,5 +32,19 @@ glm::mat4 update_model_matrix(glm::mat4 modelMatrix, const glm::vec3& translatio
 }
 
 //------------------------------------------------------------------------------
+
+glm::mat4 get_projection_matrix(float fov, float aspectRatio, float near, float far)
+{
+    return glm::perspective(glm::radians(fov), aspectRatio, near, far);
+}
+
+//------------------------------------------------------------------------------
+
+glm::mat4 get_view_matrix(const glm::vec3& cameraPos, const glm::vec3& cameraFront, const glm::vec3& cameraUp)
+{
+    return glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+}
+
+//------------------------------------------------------------------------------
 // END OF FILE
 //------------------------------------------------------------------------------
