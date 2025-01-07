@@ -26,8 +26,8 @@ public:
 
     GLuint get_id();
 
-    std::string fetch_single_uniform(std::string uniform_name);
-    std::string fetch_multi_uniform(std::string uniform_name, int index);
+    GLuint fetch_single_uniform(std::string uniform_name);
+    GLuint fetch_multi_uniform(std::string uniform_name, int index);
 
     void use();
 

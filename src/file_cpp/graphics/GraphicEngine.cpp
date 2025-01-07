@@ -15,9 +15,10 @@ GraphicEngine::GraphicEngine()
     auto squareData = std::make_shared<SquareData>();
     auto squareMesh = std::make_shared<Mesh<SquareData>>();
     _meshes["square"].push_back(squareMesh);
-
+    //_meshes["cube"].push_back(std::make_shared<Mesh3D>("models/cube.obj"));
     _shaders[0]->use();
-    glUniform1i(glGetUniformLocation(_shaders[0]->get_id(), "texture1"), 0);
+    _shaders[0]->set_single_form("Texture", "texture1");
+    glUniform1i(_shaders[0]->fetch_single_uniform("Texture"), 0);
     glEnable(GL_DEPTH_TEST);
 }
 

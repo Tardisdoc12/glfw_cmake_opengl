@@ -157,31 +157,31 @@ void Shader::set_multi_form(std::string uniform_type, std::string uniform_name)
 
 //------------------------------------------------------------------------------
 
-std::string Shader::fetch_single_uniform(std::string uniform_name)
+GLuint Shader::fetch_single_uniform(std::string uniform_name)
 {
     if(_single_uniform.find(uniform_name) == _single_uniform.end())
     {
         std::cerr << "Uniform name not found" << std::endl;
-        return "";
+        return 0;
     }
-    return _single_uniform[uniform_name];
+    return glGetUniformLocation(this->get_id(),_single_uniform[uniform_name].c_str());
 }
 
 //------------------------------------------------------------------------------
 
-std::string Shader::fetch_multi_uniform(std::string uniform_name, int index)
+GLuint Shader::fetch_multi_uniform(std::string uniform_name, int index)
 {
     if(_multi_uniform.find(uniform_name) == _multi_uniform.end())
     {
         std::cerr << "Uniform name not found" << std::endl;
-        return "";
+        return 0;
     }
     if(index >= _multi_uniform[uniform_name].size())
     {
         std::cerr << "Index out of range" << std::endl;
-        return "";
+        return 0;
     }
-    return _multi_uniform[uniform_name][index];
+    return glGetUniformLocation(this->get_id(),_multi_uniform[uniform_name][index].c_str());
 }
 
 //------------------------------------------------------------------------------
