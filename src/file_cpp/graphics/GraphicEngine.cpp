@@ -19,6 +19,10 @@ GraphicEngine::GraphicEngine()
     _shaders[0]->use();
     _shaders[0]->set_single_form("Texture", "texture1");
     glUniform1i(_shaders[0]->fetch_single_uniform("Texture"), 0);
+    _modelMatrix = get_model_matrix(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.f, 0.0f), glm::vec3(1.0f, 2.0f, 1.0f));
+    _shaders[0]->set_single_form("Model", "ModelMatrix");
+    glUniformMatrix4fv(_shaders[0]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_modelMatrix));
+
     glEnable(GL_DEPTH_TEST);
 }
 
@@ -30,6 +34,8 @@ GraphicEngine::~GraphicEngine() = default;
 
 void GraphicEngine::update()
 {
+    _modelMatrix = update_model_matrix(_modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+    glUniformMatrix4fv(_shaders[0]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_modelMatrix));
 }
 
 //------------------------------------------------------------------------------
