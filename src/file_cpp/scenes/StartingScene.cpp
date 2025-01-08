@@ -5,6 +5,7 @@
 //------------------------------------------------------------------------------
 
 #include "../../file_h/scenes/StartingScene.h"
+#include "../../file_h/globals/variables.h"
 #include <iostream>
 
 
@@ -12,6 +13,9 @@
 
 StartingScene::StartingScene()
 {
+    globals::entitiesCor["cat"] = 0;
+    globals::entitiesCor["screen"] = 1;
+    _graphicEngine = GraphicEngine();
 }
 
 //------------------------------------------------------------------------------
