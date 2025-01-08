@@ -48,19 +48,19 @@ public:
 
     void bind();
     void unbind();
-
     void clear();
-    void attachTexture(GLuint textureID, GLenum attachmentType = GL_COLOR_ATTACHMENT0);
-    void attachRenderbuffer(GLuint renderbufferID, GLenum attachmentType = GL_DEPTH_STENCIL_ATTACHMENT);
+ 
+    void attachTexture(int width, int height, GLenum attachmentType = GL_COLOR_ATTACHMENT0);
+    void attachRenderbuffer(int width, int height, GLenum attachmentType = GL_DEPTH_STENCIL_ATTACHMENT);
 
     GLuint getTexture() const;
 
     bool isComplete();
+
 private:
     GLuint framebufferID;
-    std::vector<GLuint> attachments;
-    GLuint _renderbufferID;
-    GLuint _textureID;
+    std::shared_ptr<ColorBuffer> _colorBuffer;
+    std::shared_ptr<DepthStencilBuffer> _depthStencilBuffer;
 };
 
 //------------------------------------------------------------------------------

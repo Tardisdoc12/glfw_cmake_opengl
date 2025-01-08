@@ -21,9 +21,9 @@ GraphicEngine::GraphicEngine()
     auto screenData = ScreenData();
     _meshes["screen"].push_back(std::make_shared<Mesh<ScreenData>>());
 
-    // create framebuffer :
-    std::unique_ptr<Framebuffer> framebuffer = std::make_unique<Framebuffer>(800, 600);
-    _framebuffers[0] = std::move(framebuffer);
+    _framebuffers[0] = std::make_unique<Framebuffer>();
+    _framebuffers[0]->attachTexture(800, 600);
+    _framebuffers[0]->attachRenderbuffer(800, 600);
 
     if (!_framebuffers[0]->isComplete())
     {

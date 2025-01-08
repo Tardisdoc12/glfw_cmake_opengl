@@ -74,22 +74,8 @@ Framebuffer::Framebuffer(int width, int height)
 {
     glGenFramebuffers(1, &framebufferID);
     glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
-
-    glGenTextures(1, &_textureID);
-    glBindTexture(GL_TEXTURE_2D, _textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _textureID, 0);
-
-    glGenRenderbuffers(1, &_renderbufferID);
-    glBindRenderbuffer(GL_RENDERBUFFER, _renderbufferID);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _renderbufferID);
-
+    this->attachTexture(width, height);
+    this->attachRenderbuffer(width, height);
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
         std::cerr << "Framebuffer is not complete" << std::endl;
@@ -128,24 +114,26 @@ void Framebuffer::clear()
 
 GLuint Framebuffer::getTexture() const
 {
-    return _textureID;
+    return _colorBuffer->getTexture();
 }
 
 //------------------------------------------------------------------------------
 
-void Framebuffer::attachTexture(GLuint textureID, GLenum attachmentType) {
+void Framebuffer::attachTexture(int width, int height, GLenum attachmentType)
+{
+    _colorBuffer = std::make_shared<ColorBuffer>(width, height);
     bind();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, textureID, 0);
-    attachments.push_back(textureID);
-    _textureID = textureID;
+    glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, _colorBuffer->getTexture(), 0);
     unbind();
 }
 
 //------------------------------------------------------------------------------
 
-void Framebuffer::attachRenderbuffer(GLuint renderbufferID, GLenum attachmentType) {
+void Framebuffer::attachRenderbuffer(int width, int height, GLenum attachmentType)
+{
+    _depthStencilBuffer = std::make_shared<DepthStencilBuffer>(width, height);
     bind();
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachmentType, GL_RENDERBUFFER, renderbufferID);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachmentType, GL_RENDERBUFFER, _depthStencilBuffer->getTexture());
     unbind();
 }
 
