@@ -44,6 +44,8 @@ public:
     Framebuffer();
     ~Framebuffer();
 
+    Framebuffer(int width, int height);
+
     void bind();
     void unbind();
 
@@ -52,9 +54,13 @@ public:
     void attachRenderbuffer(GLuint renderbufferID, GLenum attachmentType = GL_DEPTH_STENCIL_ATTACHMENT);
 
     GLuint getTexture() const;
+
+    bool isComplete();
 private:
     GLuint framebufferID;
     std::vector<GLuint> attachments;
+    GLuint _renderbufferID;
+    GLuint _textureID;
 };
 
 //------------------------------------------------------------------------------

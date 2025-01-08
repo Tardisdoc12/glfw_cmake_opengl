@@ -3,6 +3,9 @@
 // Author : Jean Anquetil
 // Date : 27/12/2024
 //------------------------------------------------------------------------------
+
+#include <iostream>
+
 #include "../../file_h/graphics/Framebuffer.h"
 
 //------------------------------------------------------------------------------
@@ -12,9 +15,11 @@ ColorBuffer::ColorBuffer(int width, int height, GLenum internalFormat, GLenum fo
 {
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, nullptr);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
 //------------------------------------------------------------------------------
@@ -36,11 +41,9 @@ GLuint ColorBuffer::getTexture() const
 
 DepthStencilBuffer::DepthStencilBuffer(int width, int height, GLenum format, GLenum attachment)
 {
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glGenRenderbuffers(1, &textureID);
+    glBindRenderbuffer(GL_RENDERBUFFER, textureID);
+    glRenderbufferStorage(GL_RENDERBUFFER, format, width, height);
 }
 
 //------------------------------------------------------------------------------
@@ -63,6 +66,34 @@ GLuint DepthStencilBuffer::getTexture() const
 Framebuffer::Framebuffer()
 {
     glGenFramebuffers(1, &framebufferID);
+}
+
+//------------------------------------------------------------------------------
+
+Framebuffer::Framebuffer(int width, int height)
+{
+    glGenFramebuffers(1, &framebufferID);
+    glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
+
+    glGenTextures(1, &_textureID);
+    glBindTexture(GL_TEXTURE_2D, _textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _textureID, 0);
+
+    glGenRenderbuffers(1, &_renderbufferID);
+    glBindRenderbuffer(GL_RENDERBUFFER, _renderbufferID);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _renderbufferID);
+
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    {
+        std::cerr << "Framebuffer is not complete" << std::endl;
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -97,7 +128,7 @@ void Framebuffer::clear()
 
 GLuint Framebuffer::getTexture() const
 {
-    return 0;
+    return _textureID;
 }
 
 //------------------------------------------------------------------------------
@@ -106,6 +137,7 @@ void Framebuffer::attachTexture(GLuint textureID, GLenum attachmentType) {
     bind();
     glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, GL_TEXTURE_2D, textureID, 0);
     attachments.push_back(textureID);
+    _textureID = textureID;
     unbind();
 }
 
@@ -115,6 +147,16 @@ void Framebuffer::attachRenderbuffer(GLuint renderbufferID, GLenum attachmentTyp
     bind();
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachmentType, GL_RENDERBUFFER, renderbufferID);
     unbind();
+}
+
+//------------------------------------------------------------------------------
+
+bool Framebuffer::isComplete()
+{
+    this->bind();
+    bool complete = glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
+    this->unbind();
+    return complete;
 }
 
 //------------------------------------------------------------------------------

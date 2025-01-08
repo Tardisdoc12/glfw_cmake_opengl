@@ -64,7 +64,7 @@ void Mesh<VertexData>::render() {
 
 //------------------------------------------------------------------------------
 
-template class Mesh<SquareData>;
+template class Mesh<ScreenData>;
 
 //------------------------------------------------------------------------------
 // END OF FILE

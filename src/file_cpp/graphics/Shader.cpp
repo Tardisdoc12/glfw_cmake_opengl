@@ -113,7 +113,6 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
     checkCompileErrors(vertexShader, "VERTEX");
     checkCompileErrors(fragmentShader, "FRAGMENT");
     checkCompileErrors(_shaderProgram, "PROGRAM");
-    std::cout << "Shader program created with ID: " << _shaderProgram << std::endl;
 }
 
 //------------------------------------------------------------------------------
