@@ -63,6 +63,9 @@ GraphicEngine::~GraphicEngine() = default;
 
 void GraphicEngine::update()
 {
+    _modelMatrix = update_model_matrix(_modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+    _shaders[0]->use();
+    glUniformMatrix4fv(_shaders[0]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_modelMatrix));
 }
 
 //------------------------------------------------------------------------------
@@ -70,7 +73,7 @@ void GraphicEngine::update()
 void GraphicEngine::render(GLFWwindow* window)
 {
     // on dessine dans un framebuffer personnel
-    glClearColor(0.2f, 0.3f, 0.9f, 1.0f);
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     _framebuffers[0]->bind();
     glEnable(GL_DEPTH_TEST);
@@ -85,13 +88,12 @@ void GraphicEngine::render(GLFWwindow* window)
             _textures["cat"]->bind_texture();
             mesh->arm_for_drawing();
             mesh->render();
-            _textures["cat"]->unbind_texture();
         }
     }
 
     // on dessine sur le framebuffer par défaut
     _framebuffers[0]->unbind();
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.2f, 0.3f, 0.9f, 1.0f);
     glDisable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     _shaders[1]->use();
