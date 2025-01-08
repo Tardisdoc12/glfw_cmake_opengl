@@ -94,27 +94,27 @@ add_custom_target(copy_shaders ALL
 
 ############################################################################################
 
-# # Ajouter les models en tant que ressources
-# set(MODELS_DIR ${CMAKE_SOURCE_DIR}/src/models)
+# Ajouter les models en tant que ressources
+set(MODELS_DIR ${CMAKE_SOURCE_DIR}/src/models)
 
-# # Vérifie que le dossier des models existe
-# if(NOT EXISTS ${MODELS_DIR})
-#     message(FATAL_ERROR "Le dossier 'models' n'existe pas dans ${MODELS_DIR}")
-# endif()
+# Vérifie que le dossier des models existe
+if(NOT EXISTS ${MODELS_DIR})
+    message(FATAL_ERROR "Le dossier 'models' n'existe pas dans ${MODELS_DIR}")
+endif()
 
-# # Liste des models à copier
-# file(GLOB MODELS_FILES
-#     "${MODELS_DIR}/*"
-# )
-# # Répertoire de destination pour les models
-# set(MODELS_OUTPUT_FILES ${CMAKE_BINARY_DIR}/bin/models)
+# Liste des models à copier
+file(GLOB MODELS_FILES
+    "${MODELS_DIR}/*"
+)
+# Répertoire de destination pour les models
+set(MODELS_OUTPUT_FILES ${CMAKE_BINARY_DIR}/bin/models)
 
-# # Ajoute une règle pour copier les models
-# add_custom_target(copy_models ALL
-#     COMMAND ${CMAKE_COMMAND} -E make_directory ${MODELS_OUTPUT_FILES}
-#     COMMAND ${CMAKE_COMMAND} -E copy ${MODELS_FILES} ${MODELS_OUTPUT_FILES}
-#     COMMENT "Copie des models dans le dossier de build"
-# )
+# Ajoute une règle pour copier les models
+add_custom_target(copy_models ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${MODELS_OUTPUT_FILES}
+    COMMAND ${CMAKE_COMMAND} -E copy ${MODELS_FILES} ${MODELS_OUTPUT_FILES}
+    COMMENT "Copie des models dans le dossier de build"
+)
 
 ############################################################################################
 
