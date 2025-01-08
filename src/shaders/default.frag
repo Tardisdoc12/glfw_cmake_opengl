@@ -1,4 +1,4 @@
-#version 330 core
+#version 450
 
 out vec4 FragColor; // the output variable that goes to the next stage
   
