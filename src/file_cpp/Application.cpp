@@ -8,7 +8,7 @@
 #include <memory>
 
 #include "../file_h/Application.h"
-
+#include "../file_h/globals/variables.h"
 #include "../file_h/scenes/SceneManager.h"
 #include "../file_h/scenes/StartingScene.h"
 
@@ -25,7 +25,7 @@ Application::Application()
     
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    _window = glfwCreateWindow(800, 600, "Fenêtre GLFW", nullptr, nullptr);
+    _window = glfwCreateWindow(globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, "Fenêtre GLFW", nullptr, nullptr);
     glfwMakeContextCurrent(_window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glfwSwapInterval(1); // Synchronisation verticale 

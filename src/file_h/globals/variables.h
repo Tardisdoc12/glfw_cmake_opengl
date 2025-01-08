@@ -14,6 +14,8 @@
 namespace globals{
 
 extern std::map<std::string, int> entitiesCor;
+extern int SCREEN_WIDTH;
+extern int SCREEN_HEIGHT;
 
 namespace graphic {
 
