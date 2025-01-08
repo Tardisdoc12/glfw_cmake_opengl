@@ -33,6 +33,9 @@ GraphicEngine::GraphicEngine()
     auto screenData = ScreenData();
     _meshes[globals::entitiesCor["screen"]].push_back(std::make_shared<Mesh<ScreenData>>());
 
+    auto catEntity = std::make_shared<Entity>(glm::vec3(0.0f, 0.0f, -1.f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+    _entities[globals::entitiesCor["cat"]] = std::move(catEntity);
+
     _framebuffers[frameBuffersCor["toBlit"]] = std::make_shared<Framebuffer>();
     _framebuffers[frameBuffersCor["toBlit"]]->attachTexture(800, 600);
     _framebuffers[frameBuffersCor["toBlit"]]->attachRenderbuffer(800, 600);
@@ -49,7 +52,6 @@ GraphicEngine::GraphicEngine()
     _shaders[pipelinesCor["default"]]->set_single_form("Texture", "texture1");
     glUniform1i(_shaders[pipelinesCor["default"]]->fetch_single_uniform("Texture"), 0);
     
-    _modelMatrix = get_model_matrix(glm::vec3(0.0f, 0.0f, -1.f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
     _viewMatrix = get_view_matrix(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     _projectionMatrix = get_projection_matrix(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
     
@@ -59,7 +61,6 @@ GraphicEngine::GraphicEngine()
     
     glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("View"), 1, GL_FALSE, glm::value_ptr(_viewMatrix));
     glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("Projection"), 1, GL_FALSE, glm::value_ptr(_projectionMatrix));
-    glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_modelMatrix));
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_STENCIL_TEST);
@@ -75,9 +76,8 @@ GraphicEngine::~GraphicEngine() = default;
 
 void GraphicEngine::update()
 {
-    _modelMatrix = update_model_matrix(_modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+    _entities[globals::entitiesCor["cat"]]->update_model_matrix( glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
     _shaders[pipelinesCor["default"]]->use();
-    glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_modelMatrix));
 }
 
 //------------------------------------------------------------------------------
@@ -92,16 +92,30 @@ void GraphicEngine::render(GLFWwindow* window)
     _framebuffers[frameBuffersCor["toBlit"]]->clear();
 
     _shaders[pipelinesCor["default"]]->use();
-    for (auto& pair : _meshes){
-        for(auto& mesh : pair.second){
-            if(pair.first == globals::entitiesCor["screen"]){
-                continue;
-            }
-            _textures[globals::entitiesCor["cat"]]->bind_texture();
+    
+    for(auto& entity: globals::entitiesCor){
+        if(entity.second == globals::entitiesCor["screen"]){
+            continue;
+        }
+        glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_entities[entity.second]->get_model_matrix()));
+        _textures[entity.second]->bind_texture();
+        for(auto& mesh : _meshes[entity.second]){
             mesh->arm_for_drawing();
             mesh->render();
         }
     }
+
+    // for (auto& pair : _meshes){
+    //     for(auto& mesh : pair.second){
+    //         if(pair.first == globals::entitiesCor["screen"]){
+    //             continue;
+    //         }
+    //         glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr(_entities[globals::entitiesCor["cat"]]->get_model_matrix()));
+    //         _textures[globals::entitiesCor["cat"]]->bind_texture();
+    //         mesh->arm_for_drawing();
+    //         mesh->render();
+    //     }
+    // }
 
     // on dessine sur le framebuffer par défaut
     _framebuffers[frameBuffersCor["toBlit"]]->unbind();

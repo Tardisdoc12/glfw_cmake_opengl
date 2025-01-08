@@ -8,7 +8,7 @@
 
 //------------------------------------------------------------------------------
 
-glm::mat4 get_model_matrix(const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)
+glm::mat4 create_model_matrix(const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)
 {
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, translation);
