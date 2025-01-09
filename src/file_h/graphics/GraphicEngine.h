@@ -38,6 +38,10 @@ private:
     void setup_single_uniformms();
     void setup_multi_uniformms();
 
+    void draw_on_framebuffer(int to);
+    void transfer_framebuffer(int from, int to);
+    void draw_on_screen(int from);
+
     std::map<int, std::shared_ptr<Framebuffer>> _framebuffers;
     std::map<int, std::shared_ptr<Shader> > _shaders;
     std::map<int, std::shared_ptr<MeshBase>> _meshes;
