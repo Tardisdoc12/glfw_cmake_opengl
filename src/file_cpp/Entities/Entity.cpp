@@ -35,7 +35,7 @@ glm::mat4 Entity::get_model_matrix() const
 
 void Entity::update_model_matrix(const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)
 {
-    _modelMatrix = ::update_model_matrix(_modelMatrix, translation, rotation, scale);
+    _modelMatrix = ::update_matrix(_modelMatrix, translation, rotation, scale);
 }
 
 //------------------------------------------------------------------------------

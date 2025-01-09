@@ -18,7 +18,7 @@ glm::mat4 create_model_matrix(const glm::vec3& translation, const glm::vec3& rot
 
 //------------------------------------------------------------------------------
 
-glm::mat4 update_model_matrix(glm::mat4 modelMatrix, const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale);
+glm::mat4 update_matrix(glm::mat4 matrix, const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale);
 
 //------------------------------------------------------------------------------
 

@@ -21,14 +21,14 @@ glm::mat4 create_model_matrix(const glm::vec3& translation, const glm::vec3& rot
 
 //------------------------------------------------------------------------------
 
-glm::mat4 update_model_matrix(glm::mat4 modelMatrix, const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)
+glm::mat4 update_matrix(glm::mat4 matrix, const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)
 {
-    modelMatrix = glm::translate(modelMatrix, translation);
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-    modelMatrix = glm::scale(modelMatrix, scale);
-    return modelMatrix;
+    matrix = glm::translate(matrix, translation);
+    matrix = glm::rotate(matrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    matrix = glm::rotate(matrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    matrix = glm::rotate(matrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+    matrix = glm::scale(matrix, scale);
+    return matrix;
 }
 
 //------------------------------------------------------------------------------
