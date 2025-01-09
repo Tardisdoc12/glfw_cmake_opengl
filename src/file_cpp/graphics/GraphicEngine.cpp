@@ -32,10 +32,10 @@ void GraphicEngine::setup_textures()
 
 void GraphicEngine::setup_meshes()
 {
-    _meshes[globals::entitiesCor["cat"]].push_back(std::make_shared<Mesh3D>("models/cube.obj"));
+    _meshes[globals::entitiesCor["cat"]] = std::make_shared<Mesh3D>("models/cube.obj");
     
     // // créer un mesh de screenData:
-    _meshes[globals::entitiesCor["screen"]].push_back(std::make_shared<Mesh<ScreenData>>());
+    _meshes[globals::entitiesCor["screen"]] = std::make_shared<Mesh<ScreenData>>();
 }
 
 //------------------------------------------------------------------------------
@@ -137,18 +137,21 @@ void GraphicEngine::render(GLFWwindow* window)
 
     _shaders[pipelinesCor["default"]]->use();
     
-    for(auto& entity: globals::entitiesCor){
-        if(entity.second == globals::entitiesCor["screen"]){
+    for(auto& entity_pair: _entities){
+        if(entity_pair.first == globals::entitiesCor["screen"]){
             continue;
         }
-        _textures[entity.second]->bind_texture();
-        int entityID = 0;
-        for(auto& mesh : _meshes[entity.second]){
-            auto entiti = _entities[entity.second][entityID];
-            glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("Model"), 1, GL_FALSE, glm::value_ptr( entiti->get_model_matrix()));
+        _textures[entity_pair.first]->bind_texture();
+        auto mesh = _meshes[entity_pair.first];
+        for(auto& entity : entity_pair.second){
+            glUniformMatrix4fv(
+                _shaders[pipelinesCor["default"]]->fetch_single_uniform("Model"),
+                1,
+                GL_FALSE,
+                glm::value_ptr( entity->get_model_matrix())
+            );
             mesh->arm_for_drawing();
             mesh->render();
-            entityID++;
         }
     }
 
@@ -159,8 +162,8 @@ void GraphicEngine::render(GLFWwindow* window)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     _shaders[pipelinesCor["screen"]]->use();
     glBindTexture(GL_TEXTURE_2D, _framebuffers[0]->getTexture());
-    _meshes[globals::entitiesCor["screen"]][0]->arm_for_drawing();
-    _meshes[globals::entitiesCor["screen"]][0]->render();
+    _meshes[globals::entitiesCor["screen"]]->arm_for_drawing();
+    _meshes[globals::entitiesCor["screen"]]->render();
     
     // Swap front and back buffers
     glfwSwapBuffers(window);

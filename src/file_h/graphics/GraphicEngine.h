@@ -40,7 +40,7 @@ private:
 
     std::map<int, std::shared_ptr<Framebuffer>> _framebuffers;
     std::map<int, std::shared_ptr<Shader> > _shaders;
-    std::map<int, std::vector<std::shared_ptr<MeshBase>>> _meshes;
+    std::map<int, std::shared_ptr<MeshBase>> _meshes;
     std::map<int, std::shared_ptr<Texture>> _textures;
     std::map<int, std::vector<std::shared_ptr<Entity>>> _entities;
     glm::mat4 _viewMatrix;
