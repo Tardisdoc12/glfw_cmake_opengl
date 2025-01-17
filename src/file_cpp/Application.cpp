@@ -34,10 +34,7 @@ Application::Application()
 
 //------------------------------------------------------------------------------
 
-Application::~Application()
-{
-    _sceneManager.~SceneManager();
-}
+Application::~Application() = default;
 
 //------------------------------------------------------------------------------
 
