@@ -26,6 +26,7 @@ StartingScene::~StartingScene() = default;
 
 void StartingScene::input()
 {
+    //to do
 }
 
 //------------------------------------------------------------------------------
@@ -46,12 +47,14 @@ void StartingScene::render(GLFWwindow* window)
 
 void StartingScene::on_Enter()
 {
+    // to do
 }
 
 //------------------------------------------------------------------------------
 
 void StartingScene::on_Exit()
 {
+    //to do
 }
 
 //------------------------------------------------------------------------------
