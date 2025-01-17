@@ -88,6 +88,7 @@ void GraphicEngine::setup_single_uniformms()
 
 void GraphicEngine::setup_multi_uniformms()
 {
+    // pour l'instant aucune lumière ou autre type de multi uniforms possible
 }
 
 //------------------------------------------------------------------------------
