@@ -14,8 +14,9 @@
 
 //------------------------------------------------------------------------------
 
-Application::Application():_lastTime(0.0f)
+Application::Application()
 {
+    _lastTime = 0.0f;
     if(!glfwInit())
     {
         std::cerr << "Échec de l'initialisation de GLFW ";
