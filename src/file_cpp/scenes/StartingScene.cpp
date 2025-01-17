@@ -20,10 +20,7 @@ StartingScene::StartingScene()
 
 //------------------------------------------------------------------------------
 
-StartingScene::~StartingScene()
-{
-    _graphicEngine.~GraphicEngine();
-}
+StartingScene::~StartingScene() = default;
 
 //------------------------------------------------------------------------------
 
