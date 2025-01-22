@@ -6,7 +6,8 @@
 
 #include "../../file_h/graphics/GraphicEngine.h"
 #include "../../file_h/globals/variables.h"
-
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/string_cast.hpp>
 
 using namespace globals::graphic;
 
@@ -44,6 +45,10 @@ void GraphicEngine::setup_entities()
 {
     auto catEntity = std::make_shared<Entity>(glm::vec3(0.0f, 0.0f, -1.f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
     _entities[globals::entitiesCor["cat"]].push_back(std::move(catEntity));
+
+    // Camera
+    auto camera = Camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    _camera = std::make_shared<Camera>(camera);
 }
 
 //------------------------------------------------------------------------------
@@ -78,9 +83,7 @@ void GraphicEngine::setup_single_uniformms()
     _shaders[pipelinesCor["default"]]->set_single_form("Projection", "ProjectionMatrix");
     _shaders[pipelinesCor["default"]]->set_single_form("Model", "ModelMatrix");
 
-    _viewMatrix = get_view_matrix(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     _projectionMatrix = get_projection_matrix(45.0f, static_cast<float>(globals::SCREEN_WIDTH) / static_cast<float>(globals::SCREEN_HEIGHT), 0.1f, 100.0f);
-    glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("View"), 1, GL_FALSE, glm::value_ptr(_viewMatrix));
     glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("Projection"), 1, GL_FALSE, glm::value_ptr(_projectionMatrix));
 }
 
@@ -126,6 +129,9 @@ GraphicEngine::~GraphicEngine() = default;
 void GraphicEngine::update()
 {
     _entities[globals::entitiesCor["cat"]][0]->update_model_matrix( glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+
+
+    // _camera->updateInput(dt, direction, offsetX, offsetY);
 }
 
 //------------------------------------------------------------------------------
@@ -190,6 +196,8 @@ void GraphicEngine::draw_on_screen(int from)
 
 void GraphicEngine::render(GLFWwindow* window)
 {
+    glUniformMatrix4fv(_shaders[pipelinesCor["default"]]->fetch_single_uniform("View"), 1, GL_FALSE, glm::value_ptr(_camera->get_view_matrix()));
+    
     // on dessine dans un framebuffer personnel
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     this->draw_on_framebuffer(frameBuffersCor["toBlit"]);

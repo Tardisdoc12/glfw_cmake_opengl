@@ -13,6 +13,7 @@
 #include "Mesh3D.h"
 #include "Texture.h"
 #include "MatrixFunctions.h"
+#include "../Entities/Camera.h"
 #include "../Entities/Entity.h"
 
 //------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ private:
     std::map<int, std::shared_ptr<MeshBase>> _meshes;
     std::map<int, std::shared_ptr<Texture>> _textures;
     std::map<int, std::vector<std::shared_ptr<Entity>>> _entities;
-    glm::mat4 _viewMatrix;
+    std::shared_ptr<Camera> _camera;
     glm::mat4 _projectionMatrix;
 };
 
